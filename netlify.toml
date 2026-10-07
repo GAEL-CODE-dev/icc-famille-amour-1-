@@ -1,0 +1,12 @@
+# Le frontend statique se trouve dans icc-famille-amour/frontend.
+[build]
+  base = "icc-famille-amour/frontend"
+  command = "node build-config.mjs"
+  publish = "dist"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

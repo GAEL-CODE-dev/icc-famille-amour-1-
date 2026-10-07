@@ -7,17 +7,21 @@ const buildFile = fileURLToPath(import.meta.url);
 const outputDir = path.join(sourceDir, "dist");
 const apiOrigin = process.env.API_BASE_URL?.trim();
 
-if (!apiOrigin) {
-  throw new Error("La variable API_BASE_URL est requise pour construire le site.");
-}
+const parsedApiOrigin = apiOrigin ? new URL(apiOrigin) : null;
 
-const parsedApiOrigin = new URL(apiOrigin);
-
-if (parsedApiOrigin.protocol !== "https:") {
+if (parsedApiOrigin && parsedApiOrigin.protocol !== "https:") {
   throw new Error("API_BASE_URL doit utiliser HTTPS en production.");
 }
 
-const apiBase = `${apiOrigin.replace(/\/+$/, "")}/api/v1`;
+if (!parsedApiOrigin) {
+  console.warn(
+    "[build] API_BASE_URL non définie : le site est publié avec la configuration d'API par défaut."
+  );
+}
+
+const apiBase = parsedApiOrigin
+  ? `${apiOrigin.replace(/\/+$/, "")}/api/v1`
+  : null;
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
@@ -47,10 +51,13 @@ for (const entry of entries) {
     }
   );
 }
-await writeFile(
-  path.join(outputDir, "js", "runtime-config.js"),
-  `window.ICC_API_BASE = ${JSON.stringify(apiBase)};\n`,
-  "utf8"
-);
-
-console.log(`[build] Frontend préparé pour ${parsedApiOrigin.host}.`);
+if (apiBase) {
+  await writeFile(
+    path.join(outputDir, "js", "runtime-config.js"),
+    `window.ICC_API_BASE = ${JSON.stringify(apiBase)};\n`,
+    "utf8"
+  );
+  console.log(`[build] Frontend préparé pour ${parsedApiOrigin.host}.`);
+} else {
+  console.log("[build] Frontend préparé.");
+}
