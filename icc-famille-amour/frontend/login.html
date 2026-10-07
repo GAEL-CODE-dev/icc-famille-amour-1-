@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Connexion | ICC Famille Amour</title>
+
+  <!-- Tailwind CSS -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Design tokens -->
+
+  <link rel="stylesheet" href="./css/tokens.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            icc: {
+              red: "#B91C1C",
+              dark: "#991B1B",
+              light: "#FEF2F2"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+</head>
+
+<body
+  class="min-h-screen bg-gray-50
+         text-gray-800
+         flex items-center justify-center
+         px-4 py-8"
+>
+
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <!-- =====================================================
+       CONTENU
+  ====================================================== -->
+
+  <main id="main-content" class="w-full max-w-md" tabindex="-1">
+
+
+<!-- =================================================
+     LOGO
+================================================== -->
+
+<div class="mb-8 flex flex-col items-center">
+
+  <img
+    src="./logo/edcf925a-ec94-41cc-bbc4-f971ba7298c3.JPG"
+    alt="Logo ICC Famille Amour"
+    class="h-20 w-20 rounded-2xl object-cover shadow-lg"
+  />
+
+
+  <h1
+    class="mt-4 text-2xl
+           font-bold text-gray-900"
+  >
+    ICC Famille Amour
+  </h1>
+
+
+  <p
+    class="mt-1 text-sm
+           text-gray-500"
+  >
+    Espace administration
+  </p>
+
+</div>
+
+
+<!-- =================================================
+     CARTE CONNEXION
+================================================== -->
+
+<section
+  class="rounded-2xl
+         border border-gray-200
+         bg-white
+         p-6 shadow-sm
+         sm:p-8"
+  aria-labelledby="login-title"
+  aria-describedby="login-description"
+>
+
+  <!-- En-tête -->
+  <div class="mb-6">
+
+    <h2
+      id="login-title"
+      class="text-xl font-bold
+             text-gray-900"
+    >
+      Bienvenue
+    </h2>
+
+    <p
+      id="login-description"
+      class="mt-1 text-sm
+             text-gray-500"
+    >
+      Connectez-vous à votre espace administrateur.
+    </p>
+
+  </div>
+
+
+  <!-- =================================================
+       FORMULAIRE
+  ================================================== -->
+
+  <form
+    id="login-form"
+    class="space-y-5"
+    novalidate
+  >
+
+    <!-- Email -->
+    <div>
+
+      <label
+        for="email"
+        class="mb-2 block
+               text-sm font-medium
+               text-gray-700"
+      >
+        Adresse email
+      </label>
+
+      <div class="relative">
+
+        <i
+          data-lucide="mail"
+          class="absolute left-3 top-1/2
+                 h-5 w-5
+                 -translate-y-1/2
+                 text-gray-400"
+        ></i>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="username"
+          required
+          placeholder="prenom.nom@iccfamilleamour.org"
+          class="w-full rounded-xl
+                 border border-gray-200
+                 bg-white
+                 py-3 pl-11 pr-4
+                 text-sm
+                 outline-none
+                 transition
+                 focus:border-red-500
+                 focus:ring-2
+                 focus:ring-red-100"
+        />
+
+      </div>
+
+    </div>
+
+
+    <!-- Mot de passe -->
+    <div>
+
+      <div class="mb-2">
+
+        <label
+          for="password"
+          class="text-sm font-medium
+                 text-gray-700"
+        >
+          Mot de passe
+        </label>
+
+      </div>
+
+
+      <div class="relative">
+
+        <i
+          data-lucide="lock-keyhole"
+          class="absolute left-3 top-1/2
+                 h-5 w-5
+                 -translate-y-1/2
+                 text-gray-400"
+        ></i>
+
+
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Votre mot de passe"
+          class="w-full rounded-xl
+                 border border-gray-200
+                 bg-white
+                 py-3 pl-11 pr-12
+                 text-sm
+                 outline-none
+                 transition
+                 focus:border-red-500
+                 focus:ring-2
+                 focus:ring-red-100"
+        />
+
+
+        <!-- Afficher mot de passe -->
+        <button
+          type="button"
+          id="togglePassword"
+          aria-label="Afficher le mot de passe"
+          class="absolute right-3 top-1/2
+                 flex h-8 w-8
+                 -translate-y-1/2
+                 items-center justify-center
+                 rounded-lg
+                 text-gray-400
+                 transition
+                 hover:bg-gray-100
+                 hover:text-gray-700"
+        >
+          <i
+            data-lucide="eye"
+            class="h-5 w-5"
+          ></i>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ERREUR
+    ================================================== -->
+
+    <div
+      id="form-error"
+      class="hidden rounded-xl
+             border border-red-200
+             bg-red-50
+             px-4 py-3
+             text-sm text-red-700"
+      role="alert"
+      aria-live="polite"
+    ></div>
+
+
+    <!-- =================================================
+         BOUTON
+    ================================================== -->
+
+    <button
+      type="submit"
+      id="submit-btn"
+      class="flex w-full
+             items-center justify-center
+             gap-2 rounded-xl
+             bg-red-700
+             px-5 py-3
+             text-sm font-semibold
+             text-white
+             transition
+             hover:bg-red-800
+             disabled:cursor-not-allowed
+             disabled:opacity-50"
+    >
+
+      <i
+        data-lucide="log-in"
+        id="submit-icon"
+        class="h-5 w-5"
+      ></i>
+
+      <span id="submit-label">
+        Se connecter
+      </span>
+
+    </button>
+
+  </form>
+
+
+  <!-- =================================================
+       INFORMATION
+  ================================================== -->
+
+  <div
+    class="mt-6 flex gap-3
+           rounded-xl
+           border border-gray-200
+           bg-gray-50
+           p-4"
+  >
+
+    <i
+      data-lucide="shield-check"
+      class="h-5 w-5
+             flex-shrink-0
+             text-red-700"
+    ></i>
+
+    <div>
+
+      <p
+        class="text-xs
+               font-semibold
+               text-gray-700"
+      >
+        Espace sécurisé
+      </p>
+
+      <p
+        class="mt-1 text-xs
+               leading-relaxed
+               text-gray-500"
+      >
+        Cet espace est réservé aux administrateurs
+        autorisés de l'ICC Famille Amour.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
+     RETOUR SITE PUBLIC
+================================================== -->
+
+<div class="mt-6 text-center">
+
+  <a
+    href="./index.html"
+    class="inline-flex items-center
+           gap-2 text-sm
+           font-medium
+           text-gray-500
+           transition
+           hover:text-red-700"
+  >
+
+    <i
+      data-lucide="arrow-left"
+      class="h-4 w-4"
+    ></i>
+
+    Retour au site public
+
+  </a>
+
+</div>
+
+
+<!-- Footer -->
+<p
+  class="mt-6 text-center
+         text-xs text-gray-400"
+>
+  © 2026 ICC Famille Amour
+</p>
+
+
+  </main>
+
+  <!-- =====================================================
+       API
+  ====================================================== -->
+
+  <script src="./js/routes.js"></script>
+  <script src="./js/runtime-config.js"></script>
+  <script type="module" src="./js/api.js"></script>
+
+  <!-- =====================================================
+       LOGIN
+  ====================================================== -->
+
+  <script type="module" src="./js/pages/login.js"></script>
+
+  <!-- =====================================================
+       INTERFACE
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       LUCIDE
+    ====================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        lucide.createIcons();
+
+      }
+    );
+
+
+    /* =====================================================
+       AFFICHER / MASQUER MOT DE PASSE
+    ====================================================== */
+
+    const password =
+      document.getElementById("password");
+
+    const togglePassword =
+      document.getElementById("togglePassword");
+
+
+    if (password && togglePassword) {
+
+      togglePassword.addEventListener(
+        "click",
+        () => {
+
+          const icon =
+            togglePassword.querySelector(
+              "[data-lucide]"
+            );
+
+
+          if (password.type === "password") {
+
+            password.type = "text";
+
+            togglePassword.setAttribute(
+              "aria-label",
+              "Masquer le mot de passe"
+            );
+
+            if (icon) {
+              icon.setAttribute(
+                "data-lucide",
+                "eye-off"
+              );
+            }
+
+          } else {
+
+            password.type = "password";
+
+            togglePassword.setAttribute(
+              "aria-label",
+              "Afficher le mot de passe"
+            );
+
+            if (icon) {
+              icon.setAttribute(
+                "data-lucide",
+                "eye"
+              );
+            }
+
+          }
+
+          lucide.createIcons();
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>

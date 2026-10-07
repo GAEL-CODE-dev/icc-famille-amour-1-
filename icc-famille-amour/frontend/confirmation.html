@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff8f6" />
+  <title>Inscription confirmée | ICC Famille Amour</title>
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <style>
+    body {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 1.25rem;
+      background: var(--icc-cream);
+      color: var(--icc-ink);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .confirmation-panel {
+      width: min(100%, 38rem);
+      box-sizing: border-box;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      border: 1px solid var(--icc-line);
+      border-radius: 1rem;
+      background: white;
+      text-align: center;
+      box-shadow: 0 16px 44px rgba(64, 22, 22, 0.07);
+      animation: arrive 420ms ease-out both;
+    }
+
+    .success-mark {
+      display: grid;
+      width: 4.5rem;
+      height: 4.5rem;
+      place-items: center;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: #eaf7ef;
+      color: #17633b;
+    }
+
+    .action-link {
+      display: inline-flex;
+      min-height: 3rem;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      margin-top: 2rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--icc-red);
+      border-radius: 0.625rem;
+      background: var(--icc-red);
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 150ms ease, border-color 150ms ease;
+    }
+
+    .action-link:hover {
+      border-color: var(--icc-red-dark);
+      background: var(--icc-red-dark);
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .confirmation-panel { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="confirmation-panel" aria-labelledby="confirmation-title" aria-live="polite">
+      <div class="success-mark" aria-hidden="true">
+        <i data-lucide="check" width="30" height="30"></i>
+      </div>
+      <p class="mb-2 text-xs font-bold uppercase tracking-wide" style="color: var(--icc-red);">Enregistrement effectué</p>
+      <h1 id="confirmation-title" class="text-3xl font-bold tracking-tight">Merci<span id="member-first-name"></span>, votre inscription est confirmée.</h1>
+      <p class="mx-auto mt-4 max-w-lg text-sm leading-6" style="color: var(--icc-ink-soft);">
+        Vos informations ont bien été transmises à ICC Famille Amour. L’équipe pourra vous contacter si des précisions sont nécessaires.
+      </p>
+      <a class="action-link" href="./index.html">
+        <i data-lucide="arrow-left" width="17" height="17" aria-hidden="true"></i>
+        Retour au formulaire
+      </a>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const firstName = sessionStorage.getItem("icc_registered_member_first_name");
+      const nameNode = document.getElementById("member-first-name");
+      if (firstName) nameNode.textContent = ` ${firstName}`;
+      sessionStorage.removeItem("icc_registered_member_first_name");
+      window.lucide?.createIcons();
+    });
+  </script>
+</body>
+</html>

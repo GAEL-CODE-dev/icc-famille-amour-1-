@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: icc-famille-amour-api
+    runtime: node
+    rootDir: backend
+    region: virginia
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm run migrate && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: FRONTEND_ORIGINS
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_TTL
+        value: 15m
+      - key: JWT_REFRESH_TTL
+        value: 7d
+      - key: LOGIN_MAX_ATTEMPTS
+        value: 5
+      - key: LOGIN_LOCK_MINUTES
+        value: 15
+
+  - type: web
+    name: icc-famille-amour-site
+    runtime: static
+    rootDir: frontend
+    buildCommand: node build-config.mjs
+    staticPublishPath: dist
+    envVars:
+      - key: API_BASE_URL
+        fromService:
+          name: icc-famille-amour-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
