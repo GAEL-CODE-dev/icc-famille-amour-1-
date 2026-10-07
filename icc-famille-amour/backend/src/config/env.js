@@ -19,6 +19,7 @@ const localFrontendOrigins = [
 function required(name) {
   const value = process.env[name];
   if (!value) {
+    console.error("Variables reçues :", Object.keys(process.env).sort().join(", "));
     throw new Error(
       `Variable d'environnement manquante : ${name}. Copiez .env.example vers .env et remplissez-le.`
     );
